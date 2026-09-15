@@ -1,0 +1,49 @@
+-- ============================================================
+-- Customer Analysis
+-- ============================================================
+
+USE banking_analysis;
+
+
+-- 1. Number of customers in each city
+
+SELECT city,
+       COUNT(*) AS no_of_customers
+FROM customers
+GROUP BY city;
+
+
+-- 2. Number of customers by gender
+
+SELECT gender,
+       COUNT(*) AS no_of_customers
+FROM customers
+GROUP BY gender;
+
+
+-- 3. Customers older than 35
+
+SELECT customer_id,
+       customer_name,
+       age,
+       city
+FROM customers
+WHERE age > 35
+ORDER BY age DESC;
+
+
+-- 4. Customers from selected cities
+
+SELECT customer_name,
+       city
+FROM customers
+WHERE city IN ('Hyderabad', 'Chennai', 'Mumbai');
+
+
+-- 5. Average customer age by city
+
+SELECT city,
+       AVG(age) AS average_age
+FROM customers
+GROUP BY city
+ORDER BY average_age DESC;ww

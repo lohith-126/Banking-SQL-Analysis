@@ -1,0 +1,65 @@
+-- ============================================================
+-- Account Analysis
+-- ============================================================
+
+USE banking_analysis;
+
+
+-- 1. Top 5 accounts by balance
+
+SELECT account_id,
+       customer_id,
+       balance
+FROM accounts
+ORDER BY balance DESC
+LIMIT 5;
+
+
+-- 2. Number of accounts by account type
+
+SELECT account_type,
+       COUNT(*) AS no_of_accounts
+FROM accounts
+GROUP BY account_type;
+
+
+-- 3. Total balance by account type
+
+SELECT account_type,
+       SUM(balance) AS total_balance
+FROM accounts
+GROUP BY account_type;
+
+
+-- 4. Average balance by account type
+
+SELECT account_type,
+       AVG(balance) AS average_balance
+FROM accounts
+GROUP BY account_type;
+
+
+-- 5. Categorize accounts based on balance
+
+SELECT account_id,
+       customer_id,
+       balance,
+       CASE
+           WHEN balance >= 100000 THEN 'High'
+           WHEN balance >= 50000 THEN 'Medium'
+           ELSE 'Low'
+       END AS balance_category
+FROM accounts;
+
+
+-- 6. Accounts with balance above average
+
+SELECT account_id,
+       customer_id,
+       balance
+FROM accounts
+WHERE balance > (
+    SELECT AVG(balance)
+    FROM accounts
+)
+ORDER BY balance DESC;
